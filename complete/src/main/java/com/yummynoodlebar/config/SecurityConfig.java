@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
-  protected void registerAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
     auth.inMemoryAuthentication()
         .withUser("letsnosh").password("noshing").roles("USER");
   }
@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     //{!begin configure}
-    http.authorizeUrls()
+    http.authorizeRequests()
         .antMatchers("/order/**").hasRole("USER")
         .antMatchers("/checkout").hasRole("USER")
         .anyRequest().anonymous()
